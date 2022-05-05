@@ -114,6 +114,37 @@ public class Table
 				}
 			}
 		}
+
+		// descendingDiagonalCheck
+		for(int y = 0; y < (table.size() - 4); y++){
+			count = 0;
+			int row, col;
+			for( row = y, col = (table.get(0).size() - 1); row < table.size() && col > 0; row++, col-- ){
+				if(this.table.get(row).get(col).getType() == last_piece){
+					count++;
+					if(count >= 4) 
+						return (true);
+				}
+				else {
+					count = 0;
+				}
+			}
+		}
+		for(int x = (table.get(0).size() - 2); x > 3; x--){
+			count = 0;
+			int row, col;
+			for( row = 0, col = (table.get(0).size() - 1); row < table.size() && col > 0; row++, col-- ){
+				if(this.table.get(row).get(col).getType() == last_piece){
+					count++;
+					if(count >= 4)
+						return (true);
+				}
+				else {
+					count = 0;
+				}
+			}
+		}
+
 		return (false);
 	}
 
