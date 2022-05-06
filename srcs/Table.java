@@ -144,7 +144,7 @@ public class Table
 				}
 			}
 		}
-
+		// last check not working
 		return (false);
 	}
 
