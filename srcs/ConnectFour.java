@@ -44,6 +44,5 @@ public class ConnectFour
 			player = (player + 1) % 2;
 			this.table.print();
 		}
-		//this.table.print();
 	}
 }

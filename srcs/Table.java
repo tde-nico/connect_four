@@ -6,8 +6,7 @@ public class Table
 {
 	private ArrayList<ArrayList<Pawn>>	table; // add this.table to tale
 	private String						pawns;
-	private int							last_pos_x;
-	private int							last_pos_y;
+	private char						last_player;
 
 	public	Table(int width, int height, String _pawns)
 	{
@@ -24,8 +23,7 @@ public class Table
 			this.table.add(row);
 		}
 		pawns = _pawns;
-		last_pos_x = 0;
-		last_pos_y = 0;
+		last_player = ' ';
 	}
 
 	public boolean	addPawn(int x, int player)
@@ -43,9 +41,8 @@ public class Table
 				|| (y < (this.table.size() - 1)
 				&& this.table.get(y + 1).get(x).getType() != ' '))
 			{
-				last_pos_x = x;
-				last_pos_y = y;
-				this.table.get(y).get(x).setType(pawns.charAt(player));
+				last_player = pawns.charAt(player);
+				this.table.get(y).get(x).setType(last_player);
 			}
 			++y;
 		}
@@ -54,97 +51,99 @@ public class Table
 
 	public boolean ended()
 	{
-		char	last_piece;
+		int	count;
+		int	x;
+		int	y;
+		int	row;
+		int	col;
 
-		last_piece = this.table.get(last_pos_y).get(last_pos_x).getType();
-
-		// https://stackoverflow.com/questions/32770321/connect-4-check-for-a-win-algorithm
-
-		// horizontalCheck
-		for (int y = 0; y < table.size(); y++)
+		// Horizontal Check
+		for (y = 0; y < table.size(); y++)
 		{
-			for (int x = 0; x < (table.get(0).size() - 3); x++)
+			for (x = 0; x < (table.get(0).size() - 3); x++)
 			{
-				if (this.table.get(y).get(x).getType() == last_piece
-					&& this.table.get(y).get(x + 1).getType() == last_piece
-					&& this.table.get(y).get(x + 2).getType() == last_piece
-					&& this.table.get(y).get(x + 3).getType() == last_piece)
+				if (this.table.get(y).get(x).getType() == last_player
+					&& this.table.get(y).get(x + 1).getType() == last_player
+					&& this.table.get(y).get(x + 2).getType() == last_player
+					&& this.table.get(y).get(x + 3).getType() == last_player)
 					return (true);
 			}
 		}
-		// verticalCheck
-		for (int y = 0; y < (table.size() - 3); y++)
+		// Vertical Check
+		for (y = 0; y < (table.size() - 3); y++)
 		{
-			for (int x = 0; x < table.get(0).size(); x++)
+			for (x = 0; x < table.get(0).size(); x++)
 			{
-				if (this.table.get(y).get(x).getType() == last_piece
-					&& this.table.get(y + 1).get(x).getType() == last_piece
-					&& this.table.get(y + 2).get(x).getType() == last_piece
-					&& this.table.get(y + 3).get(x).getType() == last_piece)
+				if (this.table.get(y).get(x).getType() == last_player
+					&& this.table.get(y + 1).get(x).getType() == last_player
+					&& this.table.get(y + 2).get(x).getType() == last_player
+					&& this.table.get(y + 3).get(x).getType() == last_player)
 					return (true);
 			}
 		}
-		int count;
-		// ascendingDiagonalCheck
-		for(int y = 0; y < (table.size() - 4); y++){
+
+		// Ascending Diagonal Check
+		for (y = 0; y < (table.size() - 4); y++)
+		{
 			count = 0;
-			int row, col;
-			for( row = y, col = 0; row < table.size() && col < table.get(0).size(); row++, col++ ){
-				if(this.table.get(row).get(col).getType() == last_piece){
-					count++;
+			for (row = y, col = 0; row < table.size() && col < table.get(0).size(); ++row, ++col)
+			{
+				if(this.table.get(row).get(col).getType() == last_player)
+				{
+					++count;
 					if(count >= 4) 
 						return (true);
 				}
-				else {
+				else
 					count = 0;
-				}
 			}
 		}
-		for(int x = 1; x < table.get(0).size() - 4; x++){
+		for (x = 1; x < table.get(0).size() - 4; x++)
+		{
 			count = 0;
-			int row, col;
-			for( row = 0, col = x; row < table.size() && col < table.get(0).size(); row++, col++ ){
-				if(this.table.get(row).get(col).getType() == last_piece){
-					count++;
+			for(row = 0, col = x; row < table.size() && col < table.get(0).size(); ++row, ++col)
+			{
+				if(this.table.get(row).get(col).getType() == last_player)
+				{
+					++count;
 					if(count >= 4)
 						return (true);
 				}
-				else {
+				else
 					count = 0;
-				}
 			}
 		}
 
-		// descendingDiagonalCheck
-		for(int y = 0; y < (table.size() - 4); y++){
+		// Descending Diagonal Check
+		for (y = 0; y <= (table.size() - 4); y++)
+		{
 			count = 0;
-			int row, col;
-			for( row = y, col = (table.get(0).size() - 1); row < table.size() && col > 0; row++, col-- ){
-				if(this.table.get(row).get(col).getType() == last_piece){
-					count++;
+			for(row = y, col = (table.get(0).size() - 1); row < table.size() && col >= 0; ++row, --col)
+			{
+				if(this.table.get(row).get(col).getType() == last_player)
+				{
+					++count;
 					if(count >= 4) 
 						return (true);
 				}
-				else {
+				else
 					count = 0;
-				}
 			}
 		}
-		for(int x = (table.get(0).size() - 2); x > 3; x--){
+		for (x = (table.get(0).size() - 2); x >= 3; x--)
+		{
 			count = 0;
-			int row, col;
-			for( row = 0, col = (table.get(0).size() - 1); row < table.size() && col > 0; row++, col-- ){
-				if(this.table.get(row).get(col).getType() == last_piece){
-					count++;
+			for( row = 0, col = x; row < table.size() && col >= 0; ++row, --col)
+			{
+				if(this.table.get(row).get(col).getType() == last_player){
+					++count;
 					if(count >= 4)
 						return (true);
 				}
-				else {
+				else
 					count = 0;
-				}
 			}
 		}
-		// last check not working
 		return (false);
 	}
 
