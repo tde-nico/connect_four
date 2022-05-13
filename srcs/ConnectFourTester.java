@@ -1,15 +1,18 @@
 public class ConnectFourTester
 {
-	public static void main(String[] args)
-	{
-		// to add param stuff
-		ConnectFour test = new ConnectFour();
-		test.play();
-	}
-}
-
+	// example
 	/**
 		@param
 		@param
 		@return
 	*/
+
+	/**
+		Main of the program
+	*/
+	public static void main(String[] args)
+	{
+		ConnectFour test = new ConnectFour();
+		test.play();
+	}
+}

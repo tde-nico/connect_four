@@ -6,6 +6,9 @@ public class ConnectFour
 	private	Table	table;
 	private Scanner	in;
 
+	/**
+		ConnectFour Constructor
+	*/
 	public	ConnectFour()
 	{
 		this.run = true;
@@ -13,6 +16,9 @@ public class ConnectFour
 		this.table = new Table(6, 7, "XO");
 	}
 
+	/**
+		Starts the game
+	*/
 	public void	play()
 	{
 		int player;
