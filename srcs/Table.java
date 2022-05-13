@@ -1,5 +1,3 @@
-package srcs;
-
 import java.util.ArrayList;
 
 public class Table
@@ -8,6 +6,12 @@ public class Table
 	private String						pawns;
 	private char						last_player;
 
+	/**
+		Table Class Cunstructor
+		@param width the width of the table
+		@param height the height of the table
+		@param _pawns a string that contanis the players pawns 
+	*/
 	public	Table(int width, int height, String _pawns)
 	{
 		ArrayList<Pawn>	row;
@@ -26,6 +30,12 @@ public class Table
 		last_player = ' ';
 	}
 
+	/**
+		Adds the current player's pawn into the selected column if possible
+		@param x the colomn where to place the pawn
+		@param player the index of the player that is plaing
+		@return true if the add was successfull
+	*/
 	public boolean	addPawn(int x, int player)
 	{
 		int	y;
@@ -52,15 +62,13 @@ public class Table
 	public boolean ended()
 	{
 		int	count;
-		int	x;
-		int	y;
-		int	row;
-		int	col;
+		int	x, y;
+		int	row, col;
 
 		// Horizontal Check
-		for (y = 0; y < table.size(); y++)
+		for (y = 0; y < this.table.size(); y++)
 		{
-			for (x = 0; x < (table.get(0).size() - 3); x++)
+			for (x = 0; x < (this.table.get(0).size() - 3); x++)
 			{
 				if (this.table.get(y).get(x).getType() == last_player
 					&& this.table.get(y).get(x + 1).getType() == last_player
@@ -70,9 +78,9 @@ public class Table
 			}
 		}
 		// Vertical Check
-		for (y = 0; y < (table.size() - 3); y++)
+		for (y = 0; y < (this.table.size() - 3); y++)
 		{
-			for (x = 0; x < table.get(0).size(); x++)
+			for (x = 0; x < this.table.get(0).size(); x++)
 			{
 				if (this.table.get(y).get(x).getType() == last_player
 					&& this.table.get(y + 1).get(x).getType() == last_player
@@ -83,10 +91,10 @@ public class Table
 		}
 
 		// Ascending Diagonal Check
-		for (y = 0; y < (table.size() - 4); y++)
+		for (y = 0; y < (this.table.size() - 4); y++)
 		{
 			count = 0;
-			for (row = y, col = 0; row < table.size() && col < table.get(0).size(); ++row, ++col)
+			for (row = y, col = 0; row < this.table.size() && col < this.table.get(0).size(); ++row, ++col)
 			{
 				if(this.table.get(row).get(col).getType() == last_player)
 				{
@@ -98,10 +106,10 @@ public class Table
 					count = 0;
 			}
 		}
-		for (x = 1; x < table.get(0).size() - 4; x++)
+		for (x = 1; x < this.table.get(0).size() - 4; x++)
 		{
 			count = 0;
-			for(row = 0, col = x; row < table.size() && col < table.get(0).size(); ++row, ++col)
+			for(row = 0, col = x; row < this.table.size() && col < this.table.get(0).size(); ++row, ++col)
 			{
 				if(this.table.get(row).get(col).getType() == last_player)
 				{
@@ -115,10 +123,10 @@ public class Table
 		}
 
 		// Descending Diagonal Check
-		for (y = 0; y <= (table.size() - 4); y++)
+		for (y = 0; y <= (this.table.size() - 4); y++)
 		{
 			count = 0;
-			for(row = y, col = (table.get(0).size() - 1); row < table.size() && col >= 0; ++row, --col)
+			for(row = y, col = (this.table.get(0).size() - 1); row < this.table.size() && col >= 0; ++row, --col)
 			{
 				if(this.table.get(row).get(col).getType() == last_player)
 				{
@@ -130,10 +138,10 @@ public class Table
 					count = 0;
 			}
 		}
-		for (x = (table.get(0).size() - 2); x >= 3; x--)
+		for (x = (this.table.get(0).size() - 2); x >= 3; x--)
 		{
 			count = 0;
-			for( row = 0, col = x; row < table.size() && col >= 0; ++row, --col)
+			for( row = 0, col = x; row < this.table.size() && col >= 0; ++row, --col)
 			{
 				if(this.table.get(row).get(col).getType() == last_player){
 					++count;
@@ -147,6 +155,7 @@ public class Table
 		return (false);
 	}
 
+
 	public void	reset()
 	{
 		for (int y = 0; y < this.table.size(); ++y)
@@ -157,6 +166,7 @@ public class Table
 			}
 		}
 	}
+
 
 	public void print()
 	{

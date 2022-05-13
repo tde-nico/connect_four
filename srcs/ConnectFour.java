@@ -1,5 +1,3 @@
-package srcs;
-
 import java.util.Scanner;
 
 public class ConnectFour

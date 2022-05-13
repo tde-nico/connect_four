@@ -1,5 +1,3 @@
-package srcs;
-
 public class ConnectFourTester
 {
 	public static void main(String[] args)
@@ -9,3 +7,9 @@ public class ConnectFourTester
 		test.play();
 	}
 }
+
+	/**
+		@param
+		@param
+		@return
+	*/
