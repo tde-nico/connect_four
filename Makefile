@@ -17,7 +17,7 @@ $(OBJ_DIR)/%.class : $(SRC_DIR)/%.java
 	$(JC) $(CFLAGS) $<
 
 $(NAME).jar: $(OBJS)
-	$(LINKER) $(LFLAGS) $@ $(OBJS)
+	$(LINKER) $(LFLAGS) $@ $<
 	@echo "[+] $(NAME) compiled"
 
 all: $(NAME).jar
