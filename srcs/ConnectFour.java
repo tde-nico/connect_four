@@ -199,14 +199,14 @@ public class ConnectFour extends Table
 	/**
 		Saves the current game
 	*/
-	public void	save_game()
+	public void	save_game(String filename)
 	{
 		PrintWriter	saves;
 
 		try {
-			saves = new PrintWriter("saves.data");
+			saves = new PrintWriter(filename + ".dat");
 		} catch (IOException e) {
-			System.err.println(Pawn.RED + "Error while writing \"saves.data\"" + Pawn.RESET);
+			System.err.println(Pawn.RED + "Error while writing \"" + filename + ".dat\"" + Pawn.RESET);
 			return ;
 		}
 
@@ -237,7 +237,7 @@ public class ConnectFour extends Table
 			"\n" +
 			"help:\t\t\tprints the help\n" +
 			"exit / quit:\t\texits the match\n" +
-			"pause / save:\t\tpause the match (save and quit)\n" +
+			"pause / save [filename]:\tpause the match (save and quit)\n" +
 			"%NUMBER%:\t\ttries to place the pawn into the selected column\n"
 		);
 	}
@@ -261,7 +261,7 @@ public class ConnectFour extends Table
 					this.run = false;
 				else if (cmd.equals("pause") || cmd.equals("save"))
 				{
-					save_game();
+					save_game(in.next());
 					this.run = false;
 				}
 				if (cmd.equals("help"))
@@ -292,15 +292,15 @@ public class ConnectFour extends Table
 	/**
 		Loads the current game
 	*/
-	public boolean	load_game()
+	public boolean	load_game(String filename)
 	{
 		FileReader	saves;
 		int			x,y;
 
 		try {
-			saves = new FileReader("saves.data");
+			saves = new FileReader(filename + ".dat");
 		} catch (FileNotFoundException e) {
-			System.err.println(Pawn.RED + "\"saves.data\" file not found!" + Pawn.RESET);
+			System.err.println(Pawn.RED + "\"" + filename + ".dat\" file not found!" + Pawn.RESET);
 			return (false);
 		}
 
@@ -331,7 +331,7 @@ public class ConnectFour extends Table
 		try {
 			saves.close();
 		} catch (IOException e) {
-			System.err.println(Pawn.RED + "Error while closing \"saves.data\"" + Pawn.RESET);
+			System.err.println(Pawn.RED + "Error while closing \"" + filename + ".dat\"" + Pawn.RESET);
 			return (false);
 		}
 		return (true);
@@ -347,7 +347,7 @@ public class ConnectFour extends Table
 			"help:\t\t\tprints the help\n" +
 			"exit / quit:\t\texits the program\n" +
 			"start / new:\t\tstarts a new game\n" +
-			"continue / load:\tloads a previously saved game\n"
+			"continue / load [filename]:\tloads a previously saved game\n"
 		);
 	}
 
@@ -374,18 +374,22 @@ public class ConnectFour extends Table
 				this.current_player = 0;
 				reset();
 				play();
+				this.players.clear();
 			}
 			else if (menu_cmd.equals("continue") || menu_cmd.equals("load"))
 			{
+				String filename = in.next();
 				try {
-					load = load_game();
+					load = load_game(filename);
 				} catch (Exception e) {
-					System.err.println(Pawn.RED + "\"saves.data\" currupted!" + Pawn.RESET);
+					System.err.println(Pawn.RED + "\"" + filename + ".dat\" is currupted!" + Pawn.RESET);
 					load = false;
 				}
-				System.out.println(load);
 				if (load)
+				{
 					play();
+					this.players.clear();
+				}
 			}
 			else if (menu_cmd.equals("help"))
 				print_menu_help();
