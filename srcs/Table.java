@@ -4,17 +4,17 @@ public class Table
 {
 	protected ArrayList<ArrayList<Pawn>>	table;
 	protected String						pawns;
-	protected int							last_x;
-	protected int							last_y;
+	protected int							lastX;
+	protected int							lastY;
 	protected ArrayList<String>				colors;
 
 	/**
 		Table Class Cunstructor
 		@param width the width of the table
 		@param height the height of the table
-		@param _pawns a string that contanis the players pawns 
+		@param somePawns a string that contanis the players pawns 
 	*/
-	public	Table(int width, int height, String _pawns)
+	public	Table(int width, int height, String somePawns)
 	{
 		ArrayList<Pawn>	row;
 
@@ -31,9 +31,9 @@ public class Table
 		this.colors = new ArrayList<String>();
 		this.colors.add(Pawn.CYAN);
 		this.colors.add(Pawn.RED);
-		this.pawns = _pawns;
-		this.last_x = 0;
-		this.last_y = 0;
+		this.pawns = somePawns;
+		this.lastX = 0;
+		this.lastY = 0;
 	}
 
 	/**
@@ -44,8 +44,8 @@ public class Table
 	*/
 	public void	addPawn(int x, int y, int player)
 	{
-		this.last_x = x;
-		this.last_y = y;
+		this.lastX = x;
+		this.lastY = y;
 		this.table.get(y).get(x).setType(pawns.charAt(player));
 		this.table.get(y).get(x).setColor(colors.get(player));
 	}

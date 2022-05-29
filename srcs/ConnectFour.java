@@ -10,7 +10,7 @@ public class ConnectFour extends Table
 	private	boolean				run;
 	private Scanner				in;
 	private ArrayList<String>	players;
-	private int					current_player;
+	private int					currentPlayer;
 	private Scanner				fd;
 
 	/**
@@ -22,7 +22,7 @@ public class ConnectFour extends Table
 		this.run = true;
 		this.in = new Scanner(System.in);
 		this.players = new ArrayList<String>();
-		this.current_player = 0;
+		this.currentPlayer = 0;
 	}
 
 	/**
@@ -63,27 +63,27 @@ public class ConnectFour extends Table
 		int		count;
 		int		x, y;
 		int		row, col;
-		char	last_player;
+		char	lastPlayer;
 		int		fill;
 
-		last_player = this.table.get(last_y).get(last_x).getType();
+		lastPlayer = this.table.get(lastY).get(lastX).getType();
 
 		// Horizontal Check
 		for (x = 0; x < (this.table.get(0).size() - 3); x++)
 		{
-			if (this.table.get(last_y).get(x).getType() == last_player
-				&& this.table.get(last_y).get(x + 1).getType() == last_player
-				&& this.table.get(last_y).get(x + 2).getType() == last_player
-				&& this.table.get(last_y).get(x + 3).getType() == last_player)
+			if (this.table.get(lastY).get(x).getType() == lastPlayer
+				&& this.table.get(lastY).get(x + 1).getType() == lastPlayer
+				&& this.table.get(lastY).get(x + 2).getType() == lastPlayer
+				&& this.table.get(lastY).get(x + 3).getType() == lastPlayer)
 				return (true);
 		}
 
 		// Vertical Check
-		if (last_y < (this.table.size() - 3)
-			&& this.table.get(last_y).get(last_x).getType() == last_player
-			&& this.table.get(last_y + 1).get(last_x).getType() == last_player
-			&& this.table.get(last_y + 2).get(last_x).getType() == last_player
-			&& this.table.get(last_y + 3).get(last_x).getType() == last_player)
+		if (lastY < (this.table.size() - 3)
+			&& this.table.get(lastY).get(lastX).getType() == lastPlayer
+			&& this.table.get(lastY + 1).get(lastX).getType() == lastPlayer
+			&& this.table.get(lastY + 2).get(lastX).getType() == lastPlayer
+			&& this.table.get(lastY + 3).get(lastX).getType() == lastPlayer)
 			return (true);
 
 		// Ascending Diagonal Check
@@ -92,7 +92,7 @@ public class ConnectFour extends Table
 			count = 0;
 			for (row = y, col = 0; row < this.table.size() && col < this.table.get(0).size(); ++row, ++col)
 			{
-				if(this.table.get(row).get(col).getType() == last_player)
+				if(this.table.get(row).get(col).getType() == lastPlayer)
 				{
 					++count;
 					if(count >= 4) 
@@ -107,7 +107,7 @@ public class ConnectFour extends Table
 			count = 0;
 			for(row = 0, col = x; row < this.table.size() && col < this.table.get(0).size(); ++row, ++col)
 			{
-				if(this.table.get(row).get(col).getType() == last_player)
+				if(this.table.get(row).get(col).getType() == lastPlayer)
 				{
 					++count;
 					if(count >= 4)
@@ -124,7 +124,7 @@ public class ConnectFour extends Table
 			count = 0;
 			for(row = y, col = (this.table.get(0).size() - 1); row < this.table.size() && col >= 0; ++row, --col)
 			{
-				if(this.table.get(row).get(col).getType() == last_player)
+				if(this.table.get(row).get(col).getType() == lastPlayer)
 				{
 					++count;
 					if(count >= 4) 
@@ -139,7 +139,7 @@ public class ConnectFour extends Table
 			count = 0;
 			for( row = 0, col = x; row < this.table.size() && col >= 0; ++row, --col)
 			{
-				if(this.table.get(row).get(col).getType() == last_player){
+				if(this.table.get(row).get(col).getType() == lastPlayer){
 					++count;
 					if(count >= 4)
 						return (true);
@@ -199,7 +199,7 @@ public class ConnectFour extends Table
 		Saves the current game
 		@param filename the name of the saving
 	*/
-	public void	save_game(String filename)
+	public void	saveGame(String filename)
 	{
 		PrintWriter	saves;
 
@@ -212,7 +212,7 @@ public class ConnectFour extends Table
 
 		for (String p : this.players)
 			saves.println(p);
-		saves.println(this.current_player);
+		saves.println(this.currentPlayer);
 		for (int y = 0; y < this.table.size(); ++y)
 		{
 			for (int x = 0; x < this.table.get(0).size(); ++x)
@@ -231,7 +231,7 @@ public class ConnectFour extends Table
 	/**
 		Prints the game's help informations
 	*/
-	public void	print_game_help()
+	public void	printGameHelp()
 	{
 		System.out.println(
 			"\n" +
@@ -253,7 +253,7 @@ public class ConnectFour extends Table
 		{
 			String	cmd;
 
-			System.out.print(this.players.get(this.current_player) + " is playing: ");
+			System.out.print(this.players.get(this.currentPlayer) + " is playing: ");
 			if (!this.in.hasNextInt())
 			{
 				cmd = in.next();
@@ -261,14 +261,14 @@ public class ConnectFour extends Table
 					this.run = false;
 				else if (cmd.equals("pause") || cmd.equals("save"))
 				{
-					save_game(in.next());
+					saveGame(in.next());
 					this.run = false;
 				}
 				if (cmd.equals("help"))
-					print_game_help();
+					printGameHelp();
 				continue ;
 			}
-			if (!addPawn(this.in.nextInt(), this.current_player)) {
+			if (!addPawn(this.in.nextInt(), this.currentPlayer)) {
 				System.out.println(Pawn.YELLOW + "Invalid column!" + Pawn.RESET);
 				continue ;
 			}
@@ -276,7 +276,7 @@ public class ConnectFour extends Table
 			try {
 				if (ended())
 				{
-					System.out.println("\n" + Pawn.GREEN + this.players.get(this.current_player) + " has won!!!" + Pawn.RESET + "\n");
+					System.out.println("\n" + Pawn.GREEN + this.players.get(this.currentPlayer) + " has won!!!" + Pawn.RESET + "\n");
 					this.run = false;
 				}
 			} catch (FilledTableException e) {
@@ -284,7 +284,7 @@ public class ConnectFour extends Table
 				this.run = false;
 			}
 
-			this.current_player = (this.current_player + 1) % this.players.size();
+			this.currentPlayer = (this.currentPlayer + 1) % this.players.size();
 			print();
 		}
 	}
@@ -294,7 +294,7 @@ public class ConnectFour extends Table
 		@param filename the name of the saving
 		@return True if it has no errors
 	*/
-	public boolean	load_game(String filename)
+	public boolean	loadGame(String filename)
 	{
 		FileReader	saves;
 		int			x,y;
@@ -309,7 +309,7 @@ public class ConnectFour extends Table
 		fd = new Scanner(saves);
 		while (!fd.hasNextInt())
 			this.players.add(fd.next());
-		this.current_player = fd.nextInt();
+		this.currentPlayer = fd.nextInt();
 		y = 0;
 		fd.nextLine();
 		while (fd.hasNext())
@@ -339,7 +339,7 @@ public class ConnectFour extends Table
 	/**
 		Prints the menu's help informations
 	*/
-	public void	print_menu_help()
+	public void	printMenuHelp()
 	{
 		System.out.println(
 			"\n" +
@@ -355,7 +355,7 @@ public class ConnectFour extends Table
 	*/
 	public void	start()
 	{
-		String	menu_cmd;
+		String	menuCmd;
 		boolean	done = false;
 		boolean	load;
 
@@ -363,23 +363,23 @@ public class ConnectFour extends Table
 		while (!done)
 		{
 			System.out.print("Connect4 > ");
-			menu_cmd = in.next();
-			if (menu_cmd.equals("start") || menu_cmd.equals("new"))
+			menuCmd = in.next();
+			if (menuCmd.equals("start") || menuCmd.equals("new"))
 			{
 				System.out.print("Insert the Name of the FIRST player: ");
 				this.players.add(in.next());
 				System.out.print("Insert the Name of the SECOND player: ");
 				this.players.add(in.next());
-				this.current_player = 0;
+				this.currentPlayer = 0;
 				reset();
 				play();
 				this.players.clear();
 			}
-			else if (menu_cmd.equals("continue") || menu_cmd.equals("load"))
+			else if (menuCmd.equals("continue") || menuCmd.equals("load"))
 			{
 				String filename = in.next();
 				try {
-					load = load_game(filename);
+					load = loadGame(filename);
 				} catch (Exception e) {
 					System.err.println(Pawn.RED + "\"" + filename + ".dat\" is currupted!" + Pawn.RESET);
 					load = false;
@@ -390,12 +390,12 @@ public class ConnectFour extends Table
 					this.players.clear();
 				}
 			}
-			else if (menu_cmd.equals("help"))
-				print_menu_help();
-			else if (menu_cmd.equals("exit") || menu_cmd.equals("quit"))
+			else if (menuCmd.equals("help"))
+				printMenuHelp();
+			else if (menuCmd.equals("exit") || menuCmd.equals("quit"))
 				done = !done;
 			else
-				System.out.println(Pawn.RED + menu_cmd + ": Command not found" + Pawn.RESET);
+				System.out.println(Pawn.RED + menuCmd + ": Command not found" + Pawn.RESET);
 		}
 	}
 }
