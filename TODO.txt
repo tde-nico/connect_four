@@ -1,2 +1,0 @@
-custom filename to savefile
-modify the readme with istructions

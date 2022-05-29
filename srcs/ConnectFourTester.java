@@ -1,12 +1,5 @@
 public class ConnectFourTester
 {
-	// example
-	/**
-		@param
-		@param
-		@return
-	*/
-
 	/**
 		Main of the program
 	*/

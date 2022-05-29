@@ -46,7 +46,6 @@ public class ConnectFour extends Table
 				|| (y < (this.table.size() - 1)
 				&& this.table.get(y + 1).get(x).getType() != ' '))
 			{
-				//System.out.printf("%d %d\n", y, x);
 				super.addPawn(x, y, player);
 			}
 			++y;
@@ -198,6 +197,7 @@ public class ConnectFour extends Table
 
 	/**
 		Saves the current game
+		@param filename the name of the saving
 	*/
 	public void	save_game(String filename)
 	{
@@ -291,6 +291,8 @@ public class ConnectFour extends Table
 
 	/**
 		Loads the current game
+		@param filename the name of the saving
+		@return True if it has no errors
 	*/
 	public boolean	load_game(String filename)
 	{
@@ -313,15 +315,12 @@ public class ConnectFour extends Table
 		while (fd.hasNext())
 		{
 			x = 0;
-			//System.out.println(fd.nextLine());
 			for (String pawn : fd.nextLine().split(";"))
 			{
-				//System.out.printf("%d %d |%s| %d %d\n", y, x, pawn, pawn.length(), Pawn.RESET.length());
 				if (!pawn.subSequence(0, Pawn.RESET.length()).equals(Pawn.RESET))
 				{
 					this.table.get(y).get(x).setColor(pawn.subSequence(0, Pawn.BLACK.length()).toString());
 					this.table.get(y).get(x).setType(pawn.subSequence(Pawn.BLACK.length(), Pawn.BLACK.length() + 1).charAt(0));
-					//System.out.println("set");
 				}
 				++x;
 			}
@@ -396,7 +395,7 @@ public class ConnectFour extends Table
 			else if (menu_cmd.equals("exit") || menu_cmd.equals("quit"))
 				done = !done;
 			else
-				System.out.println(Pawn.RED + "Command not found" + Pawn.RESET);
+				System.out.println(Pawn.RED + menu_cmd + ": Command not found" + Pawn.RESET);
 		}
 	}
 }
