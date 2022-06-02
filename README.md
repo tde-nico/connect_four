@@ -1,6 +1,6 @@
-## connect_four
+# connect_four
 
-# ENG
+## ENG
 
 This project's requirements are java and makefile
 
@@ -14,7 +14,7 @@ with "javadoc FILENAME" where FILENAME is the name of the java file
 
 It's recommended a UNIX sys
 
-# ITA
+## ITA
 
 Questo progetto richiede di aver installato sul propio sistema java e makefile
 
