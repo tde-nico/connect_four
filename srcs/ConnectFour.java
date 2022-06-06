@@ -378,6 +378,7 @@ public class ConnectFour extends Table
 			else if (menuCmd.equals("continue") || menuCmd.equals("load"))
 			{
 				String filename = in.next();
+				reset();
 				try {
 					load = loadGame(filename);
 				} catch (Exception e) {
