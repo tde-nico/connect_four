@@ -1,3 +1,6 @@
+
+// git repo: https://github.com/tde-nico/connect_four
+
 public class ConnectFourTester
 {
 	/**
