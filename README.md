@@ -1,5 +1,16 @@
 # connect_four
 
+<!--
+#groups
+Sapienza
+
+#languages
+Java
+
+#frames and libs
+
+-->
+
 ## ENG
 
 This project's requirements are java and makefile
