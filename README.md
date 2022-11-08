@@ -1,6 +1,9 @@
 # connect_four
 
 <!--
+#field
+Learning
+
 #groups
 Sapienza
 
